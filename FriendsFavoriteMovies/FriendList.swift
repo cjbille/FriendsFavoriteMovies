@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-
+    
 struct FriendList: View {
     @Query(sort: \Friend.name) private var friends: [Friend]
     @Environment(\.modelContext) private var context
@@ -18,14 +18,10 @@ struct FriendList: View {
                 Text(friend.name)
             }
         }
-        .task {
-            context.insert(Friend("Elena"))
-            context.insert(Friend("Roy"))
-        }
     }
 }
 
 #Preview {
     FriendList()
-        .modelContainer(for: Friend.self, inMemory: true)
+        .modelContainer(SampleData.shared.modelContainer)
 }
