@@ -1,39 +1,37 @@
 //
-//  FriendList.swift
+//  MovieList.swift
 //  FriendsFavoriteMovies
 //
-//  Created by Christopher Bille on 4/10/25.
+//  Created by Christopher Bille on 4/12/25.
 //
 
 import SwiftUI
 import SwiftData
-    
-struct FriendList: View {
-    @Query(sort: \Friend.name) private var friends: [Friend]
+
+struct MovieList: View {
+    @Query(sort: \Movie.title) private var movies: [Movie]
     @Environment(\.modelContext) private var context
-    
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(friends) { friend in
-                    NavigationLink(friend.name) {
-                        Text("Details for \(friend.name)")
-                            .navigationTitle("Friend")
+                ForEach(movies) { movie in
+                    NavigationLink(movie.title) {
+                        Text("Detail view for \(movie.title)")
+                            .navigationTitle("Movie")
                             .navigationBarTitleDisplayMode(.inline)
                     }
                 }
             }
-            .navigationTitle("Friends")
+            .navigationTitle("Movies")
         } detail: {
             Text("Select a movie")
                 .navigationTitle("Movie")
                 .navigationBarTitleDisplayMode(.inline)
         }
-
     }
 }
 
 #Preview {
-    FriendList()
+    MovieList()
         .modelContainer(SampleData.shared.modelContainer)
 }

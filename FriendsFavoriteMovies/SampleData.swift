@@ -21,7 +21,7 @@ class SampleData {
             Friend.self,
             Movie.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
             insertSampleData()
@@ -34,6 +34,9 @@ class SampleData {
     private func insertSampleData() {
         for friend in Friend.sampleData {
             context.insert(friend)
+        }
+        for movie in Movie.sampleData {
+            context.insert(movie)
         }
     }
 }

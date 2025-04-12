@@ -11,7 +11,6 @@ import SwiftData
 @Model
 class Friend {
     var name: String
-    
     static let sampleData = [
         Friend("Elena"),
         Friend("Graham"),
@@ -23,5 +22,4 @@ class Friend {
     init(_ name: String) {
         self.name = name
     }
-    
 }

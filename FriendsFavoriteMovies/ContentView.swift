@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+	
 struct ContentView: View {
     var body: some View {
         TabView {
@@ -14,7 +14,7 @@ struct ContentView: View {
                 FriendList()
             }
             Tab("Movies", systemImage: "film.stack") {
-                Text("Movies")
+                MovieList()
             }
         }
     }
