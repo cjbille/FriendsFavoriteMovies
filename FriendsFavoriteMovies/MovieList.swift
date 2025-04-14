@@ -16,17 +16,30 @@ struct MovieList: View {
             List {
                 ForEach(movies) { movie in
                     NavigationLink(movie.title) {
-                        Text("Detail view for \(movie.title)")
-                            .navigationTitle("Movie")
-                            .navigationBarTitleDisplayMode(.inline)
+                        MovieDetail(movie: movie)
                     }
                 }
             }
             .navigationTitle("Movies")
+            .toolbar {
+                ToolbarItem {
+                    Button("Add movie", systemImage: "plus", action: addMovie)
+                }
+            }
         } detail: {
             Text("Select a movie")
                 .navigationTitle("Movie")
                 .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+    
+    private func addMovie() {
+        context.insert(Movie("New Movie", .now))
+    }
+    
+    private func deleteMovies(indexes: IndexSet) {
+        for index in indexes {
+            context.delete(movies[index])
         }
     }
 }

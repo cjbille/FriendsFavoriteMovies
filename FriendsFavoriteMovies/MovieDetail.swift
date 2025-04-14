@@ -9,14 +9,18 @@ import SwiftUI
 
 struct MovieDetail: View {
     @Bindable var movie: Movie
-    var body: some View {
+    var body: some View {	
         Form {
             TextField("Movie title", text: $movie.title)
             DatePicker("Release date", selection: $movie.releaseDate, displayedComponents: .date)
         }
+        .navigationTitle("Friend")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    MovieDetail(movie: SampleData.shared.movie)
+    NavigationStack {
+        MovieDetail(movie: SampleData.shared.movie)
+    }
 }
