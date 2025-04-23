@@ -11,6 +11,8 @@ import SwiftData
 struct MovieList: View {
     @Query(sort: \Movie.title) private var movies: [Movie]
     @Environment(\.modelContext) private var context
+    @State private var newMovie: Movie?
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -19,11 +21,20 @@ struct MovieList: View {
                         MovieDetail(movie: movie)
                     }
                 }
+                .onDelete(perform: deleteMovies(indexes:))
             }
             .navigationTitle("Movies")
             .toolbar {
                 ToolbarItem {
                     Button("Add movie", systemImage: "plus", action: addMovie)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    EditButton()
+                }
+            }
+            .sheet(item: $newMovie) { movie in
+                NavigationStack {
+                    MovieDetail(movie: movie)
                 }
             }
         } detail: {
@@ -34,7 +45,9 @@ struct MovieList: View {
     }
     
     private func addMovie() {
-        context.insert(Movie("New Movie", .now))
+        let newMovie = Movie("", .now)
+        context.insert(newMovie)
+        self.newMovie = newMovie
     }
     
     private func deleteMovies(indexes: IndexSet) {
