@@ -12,6 +12,9 @@ struct MovieDetail: View {
     let isNew: Bool
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
+    var sortedFriends: [Friend] {
+        movie.favoritedBy.sorted { $0.name < $1.name }
+    }
     
     init(movie: Movie, isNew: Bool = false) {
         self.movie = movie
@@ -22,6 +25,13 @@ struct MovieDetail: View {
         Form {
             TextField("Movie title", text: $movie.title)
             DatePicker("Release date", selection: $movie.releaseDate, displayedComponents: .date)
+            if !movie.favoritedBy.isEmpty {
+                Section("Favorited by") {
+                    ForEach(sortedFriends) { friend in
+                        Text(friend.name)
+                    }
+                }
+            }
         }
         .navigationTitle(isNew ? "New Movie" : "Movie")
         .navigationBarTitleDisplayMode(.inline)

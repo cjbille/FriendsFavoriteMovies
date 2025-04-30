@@ -12,6 +12,7 @@ import SwiftData
 class Movie {
     var title: String
     var releaseDate: Date
+    var favoritedBy = [Friend]()
     static let sampleData = [
         Movie("Amusing Space Traveler 3", Date(timeIntervalSinceReferenceDate: -402_000_000)),
         Movie("Difficult Cat", Date(timeIntervalSinceReferenceDate: -20_000_000)),
